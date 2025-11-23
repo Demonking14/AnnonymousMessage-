@@ -1,4 +1,4 @@
-import {success, z} from 'zod'
+import z from 'zod'
 import dbConnect from '@/lib/db'
 import { UserModel } from '@/models/Users'
 import { usernamevalidate } from '@/schemas/SignUpSchema'
