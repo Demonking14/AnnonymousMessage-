@@ -6,8 +6,7 @@ import * as z from "zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInSchema } from "@/schemas/SignInSchema";
-import axios, { AxiosError } from "axios";
-import { ApiResponse } from "@/util/ApiResponse";
+import {signIn} from 'next-auth/react'
 import {
   Form,
   FormControl,
@@ -35,17 +34,27 @@ export default function SignInPage() {
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post<ApiResponse>(`/api/sign-in`, data);
-      toast("Sign-in successfully");
-      router.replace(`/user-dashboard`);
-    } catch (error) {
-      console.log("Error in signIn onSubmitting part");
-      const axiosError = error as AxiosError<ApiResponse>;
-      const errorMessage = axiosError.response?.data.message;
+      const response = await signIn("credentials", {
+        redirect: false,
+        identifier: data.identifier,
+        password: data.password,
+      });
 
-      console.log(errorMessage);
-      toast(errorMessage || "Error while signing in");
-    } finally {
+      if (response?.error) {
+        toast("Invalid credentials");
+        return;
+      }
+
+      toast("Signed in successfully");
+      router.push("/dashboard");
+      router.refresh();
+    } catch (error) {
+       console.error("SignIn error:", error);
+    const errMsg = (error as any)?.message || "Error while signing in";
+toast(errMsg);
+      
+    }
+    finally {
       setIsSubmitting(false);
     }
   };

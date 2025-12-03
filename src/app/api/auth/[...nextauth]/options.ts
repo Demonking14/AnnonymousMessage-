@@ -10,12 +10,16 @@ export const authOptions: NextAuthOptions = {
             id: 'credentials',
             name: 'Credentials',
             credentials: {
-                email: { label: "Email", type: "text", placeholder: "example@gmail.com" },
+                identifier: {
+                    label: "Email or Username",
+                    type: "text",
+                    placeholder: "example@gmail.com"
+                },
                 password: { label: "Password", type: "password" }
             },
 
             async authorize(credentials: any): Promise<any> {
-                dbConnect();
+             await   dbConnect();
 
                 try {
                     const user = await UserModel.findOne({
