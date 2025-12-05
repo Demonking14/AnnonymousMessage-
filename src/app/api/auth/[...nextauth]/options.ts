@@ -61,25 +61,31 @@ export const authOptions: NextAuthOptions = {
 
         async jwt({ token, user }) {
             if (user) {
-                token._id = user._id,
-                    token.email = user.email,
-                    token.isVerified = user.isVerified,
-                    token.isAcceptingMessage = user.isAcceptingMessage
-
+                const dbUser = user as any; 
+                token._id = dbUser._id;
+                token.username = dbUser.username;
+                token.email = dbUser.email;
+                token.isVerified = dbUser.isverified;
+                token.isAcceptingMessage = dbUser.isAcceptingMessage;
             }
-            return token
+            return token;
         },
         async session({ session, token }) {
             if (token) {
-                session.user._id = token._id,
-                    session.user.email = token.email,
-                    session.user.isVerified = token.isVerified,
-                    session.user.isAcceptingMessage = token.isAcceptingMessage
-
+                session.user._id = token._id;
+                session.user.username = token.username;
+                session.user.email = token.email;
+                session.user.isVerified = token.isVerified;
+                session.user.isAcceptingMessage = token.isAcceptingMessage;
             }
-            return session
+            return session;
         },
-
+        async redirect({ url, baseUrl }) {
+         
+            if (url.startsWith("/")) return `${baseUrl}${url}`;
+            if (new URL(url).origin === baseUrl) return url;
+            return `${baseUrl}/dashboard`;
+        },
     },
     pages: {
         signIn: '/sign-in'

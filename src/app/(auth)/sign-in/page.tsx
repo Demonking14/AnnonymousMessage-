@@ -38,23 +38,24 @@ export default function SignInPage() {
         redirect: false,
         identifier: data.identifier,
         password: data.password,
+        callbackUrl: "/dashboard",
       });
 
       if (response?.error) {
-        toast("Invalid credentials");
+        toast.error(response.error || "Invalid credentials");
+        setIsSubmitting(false);
         return;
       }
 
-      toast("Signed in successfully");
-      router.push("/dashboard");
-      router.refresh();
+      if (response?.ok) {
+        toast.success("Signed in successfully");
+        // Use window.location for a hard redirect to ensure session is loaded
+        window.location.href = "/dashboard";
+      }
     } catch (error) {
-       console.error("SignIn error:", error);
-    const errMsg = (error as any)?.message || "Error while signing in";
-toast(errMsg);
-      
-    }
-    finally {
+      console.error("SignIn error:", error);
+      const errMsg = (error as any)?.message || "Error while signing in";
+      toast.error(errMsg);
       setIsSubmitting(false);
     }
   };

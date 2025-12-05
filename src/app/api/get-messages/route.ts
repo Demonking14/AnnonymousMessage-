@@ -36,7 +36,8 @@ export async function GET(request:Request) {
 
         return Response.json({
             success:true, 
-            message:users[0].message
+            message: "Messages fetched successfully",
+            messages: users[0].message
         } , {status:200})
 
     } catch (error) {
