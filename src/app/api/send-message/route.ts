@@ -13,6 +13,14 @@ export async function POST(request:Request) {
             } , {status:403})
         }
 
+        const isAccepting = user?.isAcceptingMessage ;
+        if(!isAccepting){
+            return Response.json({
+                success:false,
+                message:"User currently not accepting Message"
+            } , {status:400});
+        }
+
         const newMessage = {content , createdAt:new Date()};
         user.message.push(newMessage as Message);
         await user.save();
@@ -30,3 +38,4 @@ export async function POST(request:Request) {
          } , {status:500})
     }
 }
+

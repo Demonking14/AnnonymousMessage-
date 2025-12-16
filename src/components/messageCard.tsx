@@ -1,10 +1,13 @@
-'use-client'
+'use client'
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
   CardAction,
   CardHeader,
   CardTitle,
+  CardContent,
+  CardDescription,
 } from "@/components/ui/card"
 import {
   AlertDialog,
@@ -23,41 +26,79 @@ import { ApiResponse } from "@/util/ApiResponse"
 import { Message } from "@/models/Users"
 import { toast } from "sonner"
 
-type messageProp  = {
-    message:Message;
-    onMessageDelete : (messageID:string)=>void;
-
+type MessageCardProps = {
+  message: Message
+  onMessageDelete: (messageID: string) => void
 }
-export function CardDemo({message , onMessageDelete}:messageProp) {
-    const handleMessageDelete =async ()=>{
-       const response =  axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
-       toast("Message deleted successfully")
-       onMessageDelete(String(message._id));
+
+export function CardDemo({ message, onMessageDelete }: MessageCardProps) {
+  const handleMessageDelete = async () => {
+    try {
+      const response = await axios.delete<ApiResponse>(
+        `/api/delete-message/${message._id}`
+      )
+
+      if (!response.data.success) {
+        toast.error(response.data.message || "Failed to delete message")
+        return
+      }
+
+      toast.success(response.data.message || "Message deleted successfully")
+      onMessageDelete(String(message._id))
+    } catch (error) {
+      const err = error as any
+      const msg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Something went wrong while deleting message"
+      toast.error(msg)
+      console.error("Error deleting message:", err)
     }
+  }
+
+  const formattedDate = new Date(message.createdAt).toLocaleString()
+
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
-         <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive"><X/></Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleMessageDelete}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        <CardTitle className="text-base font-semibold">
+          Anonymous Message
+        </CardTitle>
+        <CardAction>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="icon">
+                <X className="h-4 w-4" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Delete this message permanently?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleMessageDelete}>
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </CardAction>
       </CardHeader>
-    
+      <CardContent className="space-y-2">
+        <p className="text-sm text-gray-800 leading-relaxed">
+          {message.content}
+        </p>
+        <CardDescription className="text-xs text-gray-500">
+          {formattedDate}
+        </CardDescription>
+      </CardContent>
     </Card>
   )
 }
+
