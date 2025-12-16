@@ -45,8 +45,11 @@ export function CardDemo({ message, onMessageDelete }: MessageCardProps) {
 
       toast.success(response.data.message || "Message deleted successfully")
       onMessageDelete(String(message._id))
-    } catch (error) {
-      const err = error as any
+    } catch (error: unknown) {
+      const err = error as {
+        response?: { data?: { message?: string } }
+        message?: string
+      }
       const msg =
         err?.response?.data?.message ||
         err?.message ||

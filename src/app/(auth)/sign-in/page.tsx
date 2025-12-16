@@ -52,10 +52,12 @@ export default function SignInPage() {
         // Use window.location for a hard redirect to ensure session is loaded
         window.location.href = "/dashboard";
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("SignIn error:", error);
-      const errMsg = (error as any)?.message || "Error while signing in";
-      toast.error(errMsg);
+      const err =
+        (error as { message?: string }) ??
+        ({ message: "Error while signing in" } as const);
+      toast.error(err.message ?? "Error while signing in");
       setIsSubmitting(false);
     }
   };

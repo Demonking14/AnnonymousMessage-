@@ -62,7 +62,7 @@ function DashboardPage() {
   }, []);
 
   const { data: session } = useSession();
-  const userId = (session?.user as any)?._id;
+  const userId = session?.user?._id;
   
   useEffect(() => {
     if (!userId || initializedUserId.current === userId) return;
@@ -88,7 +88,7 @@ function DashboardPage() {
     return <div className="p-4">Please Login</div>;
   }
 
-  const { username } = session.user as any;
+  const { username } = session.user;
   const baseURL = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : '';
   const profileURL = `${baseURL}/u/${username}`;
   

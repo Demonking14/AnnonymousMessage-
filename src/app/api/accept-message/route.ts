@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     await dbConnect();
     try {
         const session = await getServerSession(authOptions);
-        const user = session?.user as any;
+        const user = session?.user;
         if (!session || !user) {
             return Response.json({
                 success: false,
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     await dbConnect();
     try {
         const session = await getServerSession(authOptions);
-        const user = session?.user as any;
+        const user = session?.user;
         if (!session || !user) {
             return Response.json({
                 success: false,

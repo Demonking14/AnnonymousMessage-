@@ -45,8 +45,11 @@ function Page() {
 
       console.log('Message submitted', { username, ...data });
       form.reset();
-    } catch (error) {
-      const err = error as any;
+    } catch (error: unknown) {
+      const err = error as {
+        response?: { data?: { message?: string } }
+        message?: string
+      };
       const msg =
         err?.response?.data?.message ||
         err?.message ||

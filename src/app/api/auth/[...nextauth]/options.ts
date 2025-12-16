@@ -18,10 +18,13 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "password" }
             },
 
-            async authorize(credentials: any): Promise<any> {
+            async authorize(credentials) {
              await   dbConnect();
 
                 try {
+                    if (!credentials || !credentials.identifier || !credentials.password) {
+                        throw new Error("Missing credentials");
+                    }
                     const user = await UserModel.findOne({
                         $or: [
                             { email: credentials.identifier }, { username: credentials.identifier }
@@ -35,7 +38,7 @@ export const authOptions: NextAuthOptions = {
                     if (!user.isverified) {
                         throw new Error("Please verify your account first");
                     }
-                    const passwordCorrect = await bcrypt.compare(credentials.password, user.password);
+                    const passwordCorrect = await bcrypt.compare(credentials.password as string, user.password);
 
                     if (passwordCorrect) {
                         return user;
@@ -44,10 +47,11 @@ export const authOptions: NextAuthOptions = {
                         throw new Error("Incorrect password")
                     }
 
-                } catch (error) {
-
-                    throw new Error("Problem while signing In")
-
+                } catch (error: unknown) {
+                    if (error instanceof Error) {
+                        throw error;
+                    }
+                    throw new Error("Problem while signing In");
                 }
 
 
@@ -60,8 +64,14 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
 
         async jwt({ token, user }) {
-            if (user) {
-                const dbUser = user as any; 
+            if (user && "username" in user) {
+                const dbUser = user as {
+                    _id: string;
+                    username: string;
+                    email: string;
+                    isverified: boolean;
+                    isAcceptingMessage: boolean;
+                };
                 token._id = dbUser._id;
                 token.username = dbUser.username;
                 token.email = dbUser.email;

@@ -10,7 +10,7 @@ export async function DELETE(request:Request , {params} :{params:{messageID:stri
     await dbConnect();
     try {
         const session = await getServerSession(authOptions);
-        const user = session?.user as any;
+        const user = session?.user;
         if(!session || !user){
             return Response.json({
                 success:false,  
