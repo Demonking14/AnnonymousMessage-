@@ -31,8 +31,8 @@ export async function POST(request: Request) {
             success: true,
             message: "Message acceptance updated successfully"
         }, { status: 200 })
-    } catch (error: unknown) {
-        console.log("Catch error in accept-message")
+    } catch (error) {
+        console.log("Catch error in accept-message" , error)
         return Response.json(
             {
                 success: false,
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
     await dbConnect();
     try {
         const session = await getServerSession(authOptions);
@@ -68,8 +68,8 @@ export async function GET(request: Request) {
         }, {
             status: 200
         })
-    } catch (error: unknown) {
-        console.log("Error while getting isAcceptingMessage");
+    } catch (error) {
+        console.log("Error while getting isAcceptingMessage" , error);
         return Response.json({
             success: false,
             message: "Error in getting the isAccepting Message"

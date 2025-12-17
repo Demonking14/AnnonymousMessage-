@@ -4,7 +4,7 @@ import dbConnect from "@/lib/db";
 import { UserModel } from "@/models/Users";
 
 
-export async function DELETE(request:Request , {params} :{params:{messageID:string}}) {
+export async function DELETE(request: Request, { params }:{ params: { messageID: string } }) {
     const messageID = params.messageID;
     await dbConnect();
     try {
@@ -31,8 +31,8 @@ export async function DELETE(request:Request , {params} :{params:{messageID:stri
             message:"Message deleted Successfully"
         } , {status:200})
 
-    } catch (error: unknown) {
-        console.log("Error in delete-message route")
+    } catch (error) {
+        console.log("Error in delete-message route" , error)
             return Response.json({
                 success:false , 
                 message:"Got caught in delete-message "
