@@ -12,7 +12,6 @@ import { ApiResponse } from "@/util/ApiResponse";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -69,7 +68,7 @@ export default function SignUpPage() {
   const onSubmit = async (data: z.infer<typeof signupSchema>) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post<ApiResponse>(`/api/sign-up`, data);
+      await axios.post<ApiResponse>(`/api/sign-up`, data);
       toast("Sign-up successfully");
       router.replace(`/verify/${username}`);
     } catch (error) {

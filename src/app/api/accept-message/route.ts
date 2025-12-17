@@ -31,7 +31,7 @@ export async function POST(request: Request) {
             success: true,
             message: "Message acceptance updated successfully"
         }, { status: 200 })
-    } catch (error) {
+    } catch (error: unknown) {
         console.log("Catch error in accept-message")
         return Response.json(
             {
@@ -68,7 +68,7 @@ export async function GET(request: Request) {
         }, {
             status: 200
         })
-    } catch (error) {
+    } catch (error: unknown) {
         console.log("Error while getting isAcceptingMessage");
         return Response.json({
             success: false,

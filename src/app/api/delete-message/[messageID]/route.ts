@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import dbConnect from "@/lib/db";
 import { UserModel } from "@/models/Users";
-import mongoose from "mongoose";
 
 
 export async function DELETE(request:Request , {params} :{params:{messageID:string}}) {
@@ -32,7 +31,7 @@ export async function DELETE(request:Request , {params} :{params:{messageID:stri
             message:"Message deleted Successfully"
         } , {status:200})
 
-    } catch (error) {
+    } catch (error: unknown) {
         console.log("Error in delete-message route")
             return Response.json({
                 success:false , 

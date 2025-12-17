@@ -5,7 +5,7 @@ import { UserModel } from "@/models/Users";
 import mongoose from "mongoose";
 
 
-export async function GET(request:Request) {
+export async function GET(request: Request) {
     await dbConnect();
     try {
         const session = await getServerSession(authOptions);
@@ -40,7 +40,7 @@ export async function GET(request:Request) {
             messages: users[0].message
         } , {status:200})
 
-    } catch (error) {
+    } catch (error: unknown) {
         console.log("Error in get-message route")
             return Response.json({
                 success:false , 

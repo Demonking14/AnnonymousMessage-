@@ -24,7 +24,7 @@ function VerifyAccount() {
     const onSubmit = async (data: z.infer<typeof verification>) => {
         setIsSubmitting(true);
         try {
-            const response = await axios.post('/api/verifycode', {
+            await axios.post('/api/verifycode', {
                 username: usernameParam.username, // Fixed: typo and space
                 code: data.code
             });

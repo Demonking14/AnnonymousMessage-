@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { signInSchema } from "@/schemas/SignInSchema";
 import {signIn} from 'next-auth/react'
 import {
@@ -22,7 +21,6 @@ import Link from "next/link";
 
 export default function SignInPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -49,7 +47,6 @@ export default function SignInPage() {
 
       if (response?.ok) {
         toast.success("Signed in successfully");
-        // Use window.location for a hard redirect to ensure session is loaded
         window.location.href = "/dashboard";
       }
     } catch (error: unknown) {

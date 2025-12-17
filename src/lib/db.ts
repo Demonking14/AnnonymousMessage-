@@ -1,4 +1,4 @@
-import mongoose, { Types }  from "mongoose";
+import mongoose from "mongoose";
 
 type connectionObject =  {
     isConnected ? : number
@@ -10,6 +10,7 @@ const connection : connectionObject = {};
 async function dbConnect ():Promise<void>{
    if(connection.isConnected){
     console.log("Database is alreaady connected ")
+    return;
    }
 
    try {
@@ -19,7 +20,7 @@ async function dbConnect ():Promise<void>{
 
     console.log("Db connected successfully");
     
-   } catch (error) {
+   } catch (error: unknown) {
     console.log("Error in connecting to mongoDB");
 
     process.exit(1);
