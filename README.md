@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+MysteryMessage 🕵️‍♂️💬
 
-## Getting Started
+An anonymous messaging web application built using Next.js as a learning-focused full-stack project.
 
-First, run the development server:
+📌 About the Project
 
-```bash
+MysteryMessage allows users to receive anonymous messages through a public profile link.
+Each user controls whether they want to accept messages or not, and all received messages are displayed securely on the user’s dashboard.
+
+This project was built to apply real-world Next.js full-stack concepts beyond tutorials.
+
+✨ Features
+
+🔗 Public profile link for each user
+
+📨 Send anonymous messages to users
+
+✅ User can enable/disable message receiving
+
+📊 Private dashboard to view received messages
+
+🔐 Authentication using credentials
+
+📧 Email verification using OTP
+
+🧠 Username availability check with debouncing
+
+🛡️ Secure password hashing
+
+🛠 Tech Stack
+
+Frontend & Backend
+
+Next.js (App Router)
+
+TypeScript
+
+Authentication
+
+NextAuth (Credentials Provider)
+
+bcrypt for password hashing
+
+Database
+
+MongoDB
+
+Validation & Forms
+
+Zod (schema validation)
+
+React Hook Form
+
+UI
+
+Shadcn UI
+
+Utilities
+
+Axios
+
+Debouncing for real-time username validation
+
+Email
+
+Resend (used for email verification – limited due to domain constraints)
+
+📚 What I Learned
+
+Building a full-stack app using Next.js
+
+Handling authentication and authorization using NextAuth
+
+Connecting and working with MongoDB
+
+Validating data using Zod
+
+Improving UX with debouncing
+
+Structuring scalable API routes
+
+Managing forms and UI components efficiently
+
+🚧 Current Limitations
+
+Email verification is limited due to the absence of a private domain
+
+Only credentials-based authentication is implemented
+
+🔮 Future Improvements
+
+Add Google Sign-In
+
+Improve email verification flow
+
+Better UI/UX enhancements
+
+Message moderation features
+
+🚀 Getting Started Locally
+1️⃣ Clone the repository
+git clone https://github.com/Demonking14/AnnonymousMessage-.git
+cd AnnonymousMessage-
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Set up environment variables
+
+Create a .env file and add:
+
+MONGODB_URI=your_mongodb_connection_string
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+RESEND_API_KEY=your_resend_api_key
+
+4️⃣ Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open http://localhost:3000 in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🌐 Live Demo
 
-## Learn More
+👉 https://annonymous-message-seven.vercel.app
 
-To learn more about Next.js, take a look at the following resources:
+🤝 Feedback & Contributions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project was built for learning purposes.
+Feedback, suggestions, and improvements are always welcome!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+📄 License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open-source and available under the MIT License.
