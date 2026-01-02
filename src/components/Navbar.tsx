@@ -9,7 +9,7 @@ function Navbar() {
   return (
  <nav className='p-4 md:p-6 shadow-md'>
     <div className='container mx-auto flex flex-col md:flex-row justify-between items-center' >
-        <a className='text-xl font-bold mb-4 md:mb-0' href="#">Anonymous Message</a>
+        <a className='text-xl font-bold mb-4 md:mb-0' href="#">MystryMessage</a>
         {
             session? ( <>
             <span className='mr-4'>Welcome  {user?.username || user?.email || user?.name}</span>

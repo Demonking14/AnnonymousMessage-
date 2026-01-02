@@ -16,10 +16,10 @@ function Home() {
       <main className='flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-8 md:py-12 min-h-screen bg-gradient-to-b from-gray-50 to-white'>
         <section className='text-center mb-8 md:mb-12 max-w-4xl'>
           <h1 className='text-3xl md:text-5xl lg:text-6xl font-bold bg-black bg-clip-text text-transparent mb-4'>
-            Dive into the World of Anonymous Conversation
+            Dive into the World of Mystry Conversation
           </h1>
           <p className='mt-3 md:mt-4 text-base md:text-lg text-gray-600'>
-            Explore Anonymous-Message - Where your identity remains a secret
+            Explore MystryMessage - Where your identity remains a secret
           </p>
         </section>
         
@@ -57,7 +57,7 @@ function Home() {
       </main>
       
       <footer className='bg-gray-900 text-white text-center py-6 mt-auto'>
-        <p className='text-sm'>© 2024 Anonymous Message. All rights reserved. Made with ❤️ for privacy lovers.</p>
+        <p className='text-sm'>© 2024 MystryMessage. All rights reserved. Made with ❤️ for privacy lovers.</p>
       </footer>
     </>
   )

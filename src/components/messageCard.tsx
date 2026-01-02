@@ -65,7 +65,7 @@ export function CardDemo({ message, onMessageDelete }: MessageCardProps) {
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle className="text-base font-semibold">
-          Anonymous Message
+          Mystry Message
         </CardTitle>
         <CardAction>
           <AlertDialog>

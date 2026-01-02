@@ -69,7 +69,7 @@ function Page() {
         </h1>
 
         <p className="text-sm md:text-base font-semibold mb-3">
-          Send Anonymous Message to <span className="font-bold">@{username}</span>
+          Send Mystry Message to <span className="font-bold">@{username}</span>
         </p>
 
         <Form {...form}>
@@ -85,7 +85,7 @@ function Page() {
                   <FormControl>
                     <Input
                       className="w-full h-12 md:h-14 rounded-xl px-4 py-3 text-sm md:text-base border border-gray-200 shadow-sm"
-                      placeholder="Write your anonymous message here"
+                      placeholder="Write your mystry message here"
                       {...field}
                     />
                   </FormControl>
